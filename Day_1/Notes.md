@@ -103,6 +103,91 @@ gtkwave tb_good_mux.vcd
 <img src="./images/good_muk_on_gtk_wave.png">
 
 
+## Code Analysis: good_mux
+
+- Purpose: 2-to-1 multiplexer; selects between i0 and i1 based on sel.
+- Inputs: i0, i1 (data), sel (select)
+- Output: y (follows i1 if sel=1, else i0)
+- Always Block: always @(*) → combinational logic
+- Behavior: y <= i1 when sel=1, otherwise y <= i0
+- Summary: Simple, synthesizable combinational multiplexer.
+
+# Introduction to Yosys and Logic Synthesis
+## Introduction to Yosys
+- **Synthesizer** is the tool used for converting RTL to netlist.
+- **Yosys** is the synthesizer used in this workshop.
+- Yosys is an **open-source Verilog synthesis tool** that converts RTL designs into optimized gate-level netlists for FPGA or ASIC implementation.
+
+  <img src="./images/yosys_1.png" width = 800>
+
+  <img src="./images/verifying_the_synthesis.png" width = 800>
+- Stimuls should be same as output observed during RTL simulation.
+
+## Introduction to Logic Synthesis
+- **Synthesis** : RTL to Gate level translation
+- The design is converted into gates and the connections are made between gates.
+- This is given out as a file called netlist
+- **Netlist** : Representation of the design in the form of standard cells in **.lib**.
+- **.lib** : Collection of logical modules, includes basic logic gates like AND, OR, NOT ,etc... with different flavours(slow,medium,fast).
+- Fast cells → to meet the required perfromance.
+- Slow cells → to meet HOLD
+
+
+# Labs using Yosys and Sky130 PDKs
+This section covers **hands-on labs using Yosys** for Verilog synthesis.  
+Let’s synthesize the good_mux design using Yosys!
+
+1️⃣ Run the following command in your terminal to start yosys:
+
+```bash
+yosys
+```
+
+2️⃣ Command to read the liberty library
+
+```bash
+read_liberty -lib <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+```
+
+3️⃣ Command to read the design file
+
+```bash
+read_verilog <design_file.v>
+```
+<img src="./images/yosys_lab_1.png">
+4️⃣ Command to Synthesize the design
+
+```bash
+synth -top <module_name>
+```
+<img src="./images/yosys_lab_2.png">
+5️⃣ Command for Technology mapping to generate netlist
+
+```bash
+abc -liberty <path to sky130_fd_sc_hd__tt_025C_1v80.lib>
+```
+<img src="./images/yosys_lab_3.png">
+
+6️⃣ Command to visualize netlist
+
+```bash
+show
+```
+<img src="./images/yosys_lab_output2.png">
+
+7️⃣ Command to write netlist 
+
+```bash
+write_verilog <file name to save netlist>
+write_verilog -noattr <file name to save netlist in simple form>
+```
+
+
+
+
+
+
+
 
 
 
