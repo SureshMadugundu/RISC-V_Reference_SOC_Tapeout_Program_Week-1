@@ -48,11 +48,15 @@ Timing libraries (`.lib` files) are **essential files** used by synthesis tools 
 - Design is **divided into modules** and synthesized **individually**.
 - Easier to **debug**, **understand**, and **reuse** modules.
 - Slightly **less optimized**, but scalable for **large SoCs**.
+- Hierarchial synthesis netlist for [multiple_modules.v](./multiple_modules.v)
+  <img src = "./hierarchical_synth_1.png">
 
 ### **Flat Synthesis**
 - Entire design is **flattened into a single module** before synthesis.
 - Allows **maximum optimization** for **performance and area**.
 - Harder to **debug** and **less modular**.
+- Flat synthesis netlist for [multiple_modules.v](./multiple_modules.v)
+  <img src = "./flatten_synth_1.png" >
 
 | Aspect            | Hierarchical Synthesis | Flat Synthesis |
 |-------------------|------------------------|----------------|
@@ -81,5 +85,55 @@ Flip-flops are **sequential elements** used to **store data** in synchronous cir
 | **Timing Control** | Easy to manage and safe for synthesis | Harder to control |
 | **Use Case**     | Preferred for synthesis and stable designs | Used for emergency reset scenarios |
 
+
+## 🧾 Example Flip-Flop Implementations
+
+Below are the flip-flop designs explored in this lab, along with their descriptions and sample outputs.
+
 ---
+### 1️⃣ D Flip-Flop with **Synchronous Reset**
+
+**Description:**  
+This flip-flop **resets the output (`q`) to 0**, but **only on the rising edge of the clock**, making the behavior predictable and stable for synthesis tools.
+
+- **[View Code](./dff_syncres.v)**
+
+**Sample Output:**  
+<img src="./dff_syncres_output.png" width="500">
+
+
+### 2️⃣ D Flip-Flop with **Asynchronous Set**
+
+**Description:**  
+This flip-flop **immediately sets the output (`q`) to 1** when the `async_set` signal is active, independent of the clock signal.  
+Useful for **global initialization** where certain registers must be set at startup.
+
+- **[View Code](./dff_async_set.v)**
+- 
+**Sample Output:**  
+<img src="./dff_async_set_output.png" width="500">
+---
+### 3️⃣ D Flip-Flop with **Asynchronous Reset**
+
+**Description:**  
+This flip-flop **immediately resets the output (`q`) to 0** when the `async_reset` signal is asserted, independent of the clock signal.  
+Commonly used for **emergency reset scenarios**, such as power-on resets.
+
+- **[View Code](./dff_asyncres.v)**
+
+**Sample Output:**  
+<img src="./dff_asyncres_output.png" width="500">
+
+---
+
+### Quick Summary
+- **Asynchronous Flops** → Immediate action, independent of clock.  
+- **Synchronous Flops** → Controlled reset/set, happens only on clock edge.  
+
+| Type                  | Key Feature                          | Common Use Case |
+|-----------------------|--------------------------------------|----------------|
+| **Asynchronous Set**  | Output set immediately               | Global initialization |
+| **Asynchronous Reset**| Output reset immediately             | Emergency reset, power-on reset |
+| **Synchronous Reset** | Reset only on clock edge             | Stable, predictable designs |
+
 
