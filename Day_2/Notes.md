@@ -19,7 +19,7 @@ Timing libraries (`.lib` files) are **essential files** used by synthesis tools 
 - Define how gates and flip-flops behave under **different PVT (Process, Voltage, Temperature)** conditions.
 
 ---
-### 🌡 Understanding PVT (Process, Voltage, Temperature)
+### Understanding PVT (Process, Voltage, Temperature)
 
 **PVT** represents the three **critical variables** that affect chip behavior and timing:
 - **Process (P):** Variation in manufacturing leads to **fast (`ff`)**, **slow (`ss`)**, or **typical (`tt`)** transistor performance.
@@ -42,5 +42,44 @@ Timing libraries (`.lib` files) are **essential files** used by synthesis tools 
 > - Helps identify **worst-case** and **best-case timing scenarios** for reliable chip performance.
 
 ---
+## 🏗 Hierarchical vs Flat Synthesis
 
-### Example Naming Convention:
+### **Hierarchical Synthesis**
+- Design is **divided into modules** and synthesized **individually**.
+- Easier to **debug**, **understand**, and **reuse** modules.
+- Slightly **less optimized**, but scalable for **large SoCs**.
+
+### **Flat Synthesis**
+- Entire design is **flattened into a single module** before synthesis.
+- Allows **maximum optimization** for **performance and area**.
+- Harder to **debug** and **less modular**.
+
+| Aspect            | Hierarchical Synthesis | Flat Synthesis |
+|-------------------|------------------------|----------------|
+| **Debugging**     | Easier (module-wise)   | Harder |
+| **Optimization**  | Moderate               | Higher |
+| **Reusability**   | High                   | Low |
+| **Best Use Case** | Large complex SoCs     | Small designs |
+
+
+## 🔁 Efficient Flip-Flop Coding Styles & Optimizations
+
+Flip-flops are **sequential elements** used to **store data** in synchronous circuits.
+
+### **Why Efficient Coding Matters:**
+- Reduces **power consumption** and **chip area**.
+- Improves **timing performance**.
+- Avoids **unintended latches** or glitches.
+
+---
+
+### **Synchronous vs Asynchronous Reset**
+
+| Feature          | Synchronous Reset | Asynchronous Reset |
+|------------------|-------------------|--------------------|
+| **Reset Action** | Triggered **only on clock edge** | Triggered **immediately** |
+| **Timing Control** | Easy to manage and safe for synthesis | Harder to control |
+| **Use Case**     | Preferred for synthesis and stable designs | Used for emergency reset scenarios |
+
+---
+
