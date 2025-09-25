@@ -6,16 +6,16 @@ This guide is hands-on, with clear steps and labs to help you get started.
 
 ---
 
-## Table of Contents
-- [Introduction to open source simulatior iverilog,Design and Test Bench](#introduction-to-open-source-simulator-iverilog)
-- [Labs using Icarus Verilog and GTKWave](#labs-using-icarus-verilog-and-gtkwave)
+## 📚 Table of Contents
+- [Introduction to Open Source Simulator Icarus Verilog Design and Testbench](#introduction-to-open-source-simulator-icarus-verilog-design-and-testbench)
+- [Labs Using Icarus Verilog and GTKWave](#labs-using-icarus-verilog-and-gtkwave)
 - [Introduction to Yosys and Logic Synthesis](#introduction-to-yosys-and-logic-synthesis)
-- [Labs using Yosys and Sky130 PDK](#labs-using-yosys-and-sky130-pdk)
-- [Summary](#summary)
+- [Labs Using Yosys and Sky130 PDK](#labs-using-yosys-and-sky130-pdk)
 
 ---
 
-# Understanding Simulator, Design, and Testbench in Verilog
+
+# Introduction to Open Source Simulator Icarus Verilog Design and Testbench
 
 Understanding the roles of **Simulator**, **Design**, and **Testbench** is essential for anyone working with **Verilog RTL design**.  
 These three components form the backbone of **digital design verification** before moving to synthesis or actual chip fabrication. 🚀
@@ -133,7 +133,7 @@ gtkwave tb_good_mux.vcd
 - Slow cells → to meet HOLD
 
 
-# Labs using Yosys and Sky130 PDKs
+# Labs Using Yosys and Sky130 PDK
 This section covers **hands-on labs using Yosys** for Verilog synthesis.  
 Let’s synthesize the good_mux design using Yosys!
 
