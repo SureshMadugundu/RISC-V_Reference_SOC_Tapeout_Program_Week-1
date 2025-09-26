@@ -103,15 +103,17 @@ end
 
 ### GLS for ternary_operator(MUX)
 - Simulation waveform before synthesis:
-  <img src = "./imgaes/ternary_operator_sim1.png">
-- Synthesis of the [ternary_operator.v](./verilog_files/ternary_operator.v):
-    <img src = "./imgaes/ternary_operator_netlist.png">
-- Command to generate GLS for synthesized MUX : [ternary_operator.v](./verilog_files/ternary_operator.v)
+  <img src = "./images/ternary_operator_mux_sim1.png" width = 1000>
+  
+- Synthesis of the [ternary_operator_mux.v](./verilog_files/ternary_operator_mux.v):
+<img src = "./images/ternary_operator_mux_netlist.png">
+
+- Command to generate GLS for synthesized MUX : [ternary_operator_mux.v](./verilog_files/ternary_operator_mux.v)
   ```bash
   iverilog <path to primitives.v> <path to sky130_fd_sc_hd.v> <design.v> <test_bench.v>
   ```
 - Simulation After Synthesis (GLS):
-    <img src = "./imgaes/ternary_operator_sim2.png">
+    <img src = "./images/ternary_operator_mux_sim2.png">
     
 ### Synthesis-Simulation Mismatch due to missing sensitivity list
 ```verilog
@@ -125,6 +127,7 @@ end
 endmodule
 ```
 **Simulation Observation:** If i0 or i1 changes without a change in sel, output does NOT update.
+
 **Fix:**
 ```verilog
 always @(*) begin      // ✅ Correct combinational design
@@ -135,11 +138,14 @@ always @(*) begin      // ✅ Correct combinational design
 end
 ```
 - Simulation waveform before synthesis:
-  <img src = "./imgaes/bad_mux_sim1.png">
+  <img src = "./images/bad_mux_sim1.png">
+  
 - Synthesis of the [bad_mux.v](./verilog_files/bad_mux.v):
-    <img src = "./imgaes/bad_mux_netlist.png">
+<img src = "./images/bad_mux_netlist.png">
+
 - Simulation After Synthesis (GLS):
-    <img src = "./imgaes/bad_mux_sim2.png">
+    <img src = "./images/bad_mux_sim2.png">
+    
 **Learning Outcome:**
 - Understand why synthesis uses hardware gates, which always react to changes.
 - Recognize simulator behavior mismatch due to missing sensitivity.
@@ -164,11 +170,9 @@ end
 endmodule
 ```
 **Problem Explanation:**
-
 - ***In simulation:***
   - d uses the old value of x because the blocking assignment updates x only after the statement is executed.
   - This may not match actual synthesized hardware, leading to mismatches.
-
 - ***In synthesis:***
   - Hardware treats this as parallel logic, so both statements evaluate together.
 
@@ -199,7 +203,7 @@ assign d = x & c;
 <img src = "./images/blocking_caveat_sim1.png">
 
 - Synthesis of the [blocking_caveat.v](./verilog_files/blocking_caveat.v):
-<img src = "./imgaes/blocking_caveat_netlist.png">
+<img src = "./images/blocking_caveat_netlist.png">
 
 - Simulation After Synthesis (GLS):
 <img src = "./images/blocking_caveat_sim2.png">
@@ -208,11 +212,8 @@ assign d = x & c;
 - Blocking assignments in combinational logic must follow proper ordering.
 - If ordering is difficult to maintain, use continuous assignments or break logic into smaller always blocks.
 
-
 **Final Takeaways**
-
 - GLS validates post-synthesis designs before fabrication.
-
 - Always:
   - Use non-blocking (<=) for clocked always blocks.
   - Use blocking (=) in always @(*) for combinational logic, but order statements carefully.
