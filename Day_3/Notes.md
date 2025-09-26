@@ -14,7 +14,6 @@ By the end of this session, you'll not only understand key optimization concepts
 2. Combinational Logic Optimizations  
 3. Sequential Logic Optimizations  
 4. Sequential Optimizations for Unused Outputs  
-5. Hands-on Labs  
 
 ---
 
@@ -146,7 +145,7 @@ This example demonstrates how a sequential element can be **completely optimized
 - Synthesis Optimization:
   - The tool removes the flip-flop entirely.
   - The output is replaced with a direct constant connection to logic high (VCC).
-- **Gate level netlist:** <img src = "./images/dff_const2_netlist.png">
+- **Gate level netlist:** <img src = "./images/dff_const2_netlist.png" width = 400>
 ## **4. Sequential Optimizations for Unused Outputs**
 Unused outputs waste **area and power** if left unoptimized.
 
