@@ -7,14 +7,22 @@ Welcome to **Day 5 of Workshop!** 🎉
 Today, we will focus on **optimization techniques in synthesis** and learn how different coding styles in Verilog impact **hardware generation** and **resource utilization**.  
 
 We will also dive deep into:
-- Understanding Optimization in Synthesis
-- `if` and `case` constructs,
-- Labs on **"Incomplete `if case`"**
-- Labs on **"Incomplete overlapping Case"**
-- for loop and for generate
-- Labs on **"for loop"** and **"for generate"**
 
-## **1. Optimization in Synthesis**
+#### 1. [Understanding Optimization in Synthesis](#1-understanding-optimization-in-synthesis)
+#### 2. [`if` and `case` constructs](#2-if-and-case-constructs)
+#### 3. [**Lab-1 : Incomplete `if`**](#3-lab-1--incomplete-if)
+#### 4. [**Lab-2 : Incomplete if-else if**](#4-lab-2--incomplete-if-else-if)
+#### 5. [**Lab-3 : Complete Case Statement**](#5-lab-3--complete-case-statement)
+#### 6. [**Lab-4 : Incomplete Overlapping Case with Wildcards**](#6-lab-4--incomplete-overlapping-case-with-wildcards)
+#### 7. [**Lab-5 : Partial Case Assignment**](#7-lab-5--partial-case-assignment)
+#### 8. [for loop and for generate](#8-for-loop-and-for-generate)
+#### 9. [**Lab-6 Using for Loop in RTL Design**](#9-lab-6-using-for-loop-in-rtl-design)
+#### 10. [**Lab-7 : Demultiplexer using Case and For Loop**](#10-lab-7--demultiplexer-using-case-and-for-loop)
+#### 11. [**Lab-8 : Using Generate For Loop in RTL Design (RCA Example)**](#11-lab-8--using-generate-for-loop-in-rtl-design-rca-example)
+
+---
+
+## **1. Understanding Optimization in Synthesis**
 
 ### **What is Synthesis Optimization?**
 Synthesis optimization is the process where the synthesis tool improves RTL to generate **area-efficient**, **power-efficient**, and **performance-optimized** gate-level hardware.
@@ -99,7 +107,7 @@ endcase
 ## **Lab-1 : Incomplete `if`**
 Understand how an incomplete if statement can infer latches during synthesis and cause unwanted behavior in hardware.
 
-Verilog Code – [incomp_if.v](./verilog_files/incom_if.v)
+Verilog Code – [incomp_if.v](./verilog_files/incomp_if.v)
 ```verilog
 module incomp_if (
     input i0, 
@@ -390,7 +398,7 @@ endmodule
 **Explanation:**
 
 - Input Packing:
-  - The four inputs i0, i1, i2, and i3 are combined into a 4-bit vector i_int for easier indexing: ```i_int = {i3, i2, i1, i0}```
+  - The four inputs i0, i1, i2, and i3 are combined into a 4-bit vector i_int for easier indexing: ``` i_int = {i3, i2, i1, i0}```
   - Example: ```i3=1, i2=0, i1=1, i0=0 → i_int = 4'b1010```
 - For Loop Behavior:
   - The loop iterates from 0 to 3.
@@ -482,7 +490,8 @@ endmodule
 - The demux takes a 3-bit select signal sel and a single input i.
 - The output is 8 one-hot signals {o0, o1, ..., o7}.
 - Internally, y_int stores the output bits and is assigned to outputs as:
-    ```iverilog assign {o7, o6, o5, o4, o3, o2, o1, o0} = y_int;
+    ```iverilog
+    assign {o7, o6, o5, o4, o3, o2, o1, o0} = y_int;
     ```
 
 **Case Statement Behavior**
@@ -514,21 +523,30 @@ endmodule
 
 **Observations:**
 - Before Synthesis (RTL Simulation):
-  
+
+  Wave form for **demux_case.v**
     <img src = "./images/demux_case_sim1.png">
+  Wave form for **demux_for.v** 
     <img src = "./images/demux_for_sim1.png">
     
   - Both modules behave as an 8-to-1 demultiplexer, selecting one output based on sel.
  
-- Gate level netlist:
+- Gate level netlist for **demux_case.v**:
   
-  <img src ="./images/demux_case_netlist.png">
-  
-  <img src ="./images/demux_for_netlist.png">
+    <img src ="./images/demux_case_netlist.png">
+    
+ - Gate level netlist for **demux_for.v**:
+   
+    <img src ="./images/demux_for_netlist.png">
 
 - After Synthesis (GLS Simulation):
+
+  GLS for **demux_case.v**
   
     <img src = "./images/demux_case_sim2.png">
+    
+  GLS for **demux_case.v**
+  
     <img src = "./images/demux_for_sim2.png">
     
   - The for loop is unrolled by the synthesis tool into parallel logic.
